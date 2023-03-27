@@ -2,7 +2,7 @@ import { Handler, HandlerEvent, HandlerContext, schedule } from '@netlify/functi
 import fetch from 'node-fetch'
 import { API_BASE_URL } from '~~/api'
 
-const handler : Handler = async (event: HandlerEvent, context: HandlerContext) => {
+const scheduledHandler : Handler = async (event: HandlerEvent, context: HandlerContext) => {
    await fetch(API_BASE_URL + '/pictures')
 
    return {
@@ -10,6 +10,6 @@ const handler : Handler = async (event: HandlerEvent, context: HandlerContext) =
    }
 }
 
-const scheduledHandler = schedule('*/10 * * * *', handler)
+const handler = schedule('*/10 * * * *', scheduledHandler)
 
-export { scheduledHandler }
+export { handler }
