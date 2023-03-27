@@ -8,4 +8,4 @@ const handler : Handler = () => {
 
 const scheduledHandler = schedule('*/10 * * * *', handler)
 
-export default scheduledHandler
+export { scheduledHandler }
