@@ -91,7 +91,9 @@
 
     const imageStorageClient = new ImageStorageClient(config.public.imageStorageKey)
 
-    const { account, accessToken } = storeToRefs(useSessionStore())
+    const sessionStore = useSessionStore()
+    const { account, accessToken } = storeToRefs(sessionStore)
+    const { updateSession } = sessionStore
 
     const changeAvatarWindowOpened = ref(false)
     const { errorText, errorTextVisible, showErrorText } = useErrorText()
@@ -129,9 +131,7 @@
             const uploadedImageUrl = await imageStorageClient.upload(file)
             await setAvatar(accessToken.value, uploadedImageUrl)
 
-            if(account.value) {
-                account.value.avatarUrl = uploadedImageUrl
-            }
+            updateSession()
 
             changeAvatarWindowOpened.value = false
         }
