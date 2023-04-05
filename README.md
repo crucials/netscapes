@@ -10,6 +10,6 @@
 [View the website :eyes:](https://netscapes.netlify.app/)
 
 :hammer: Frontend was built with Vue 3, Nuxt, Typescript, Pinia, Tailwind CSS. 
-Backend was built with Express and Prisma 
+[Backend](https://github.com/crucials/netscapes-rest-api) was built with Express and Prisma 
 
 ![image](https://user-images.githubusercontent.com/83793845/229832749-958e7e9d-1926-4382-9957-321b417931bf.png)
