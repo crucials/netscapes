@@ -1,5 +1,5 @@
 <template>
-    <main class="main-content-wrapper" v-if="sessionChecked" @load="pageLoaded = true">
+    <main class="main-content-wrapper" v-if="sessionChecked">
         <div class="py-16 px-8">
             <h1 class="font-bold text-black text-4xl mb-6">
                 Welcome to Netscapes
@@ -12,8 +12,9 @@
             <AuthForm/>
         </div>
 
-        <img src="@/assets/images/valley-illustration.svg" alt="Valley with trees illustration" class="opacity-0 
-            transition-opacity duration-700" :class="{ 'opacity-100': pageLoaded }">
+        <Transition appear enter-from-class="opacity-0">
+            <img src="@/assets/images/valley-illustration.svg" alt="Valley with trees illustration" class="transition-opacity duration-700">
+        </Transition>
     </main>
 </template>
 
@@ -25,7 +26,6 @@
     })
 
     const sessionChecked = ref(false)
-    const pageLoaded = ref(false)
 
     const router = useRouter()
     useSessionInitListener((account) => {
@@ -33,14 +33,7 @@
             router.push('/feed')
         }
 
-        setTimeout(() => {
-            sessionChecked.value = true
-
-            // Another callback, because illustration smooth fade won't work without it 
-            setTimeout(() => {
-                    pageLoaded.value = true
-                })
-        }, 300)
+        sessionChecked.value = true
     })
 </script>
 
