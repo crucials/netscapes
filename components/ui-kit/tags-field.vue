@@ -25,19 +25,11 @@
 </template>
 
 <script lang="ts" setup>
-    import { PropType } from 'vue'
-
-    const props = defineProps({
-        initialTags: {
-            type: Array as PropType<string[]>,
-            default: []
-        }
-    })
     const emit = defineEmits<{
         (event : 'tags-updated', newValue : string[]) : void
     }>()
 
-    const tags = ref(props.initialTags)
+    const tags = ref<string[]>([])
     const newTag = ref('')
     const focused = ref(false)
 

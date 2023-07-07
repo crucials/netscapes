@@ -32,7 +32,7 @@
             <TagsField @tags-updated="(newValue) => formData.tags = newValue"/>
         </label>
 
-        <FilledButton type="button" @click="publish" class="mb-3">
+        <FilledButton type="button" @click="publish" class="mb-3" :loading="loading">
             Publish
         </FilledButton>
 
@@ -58,6 +58,7 @@
         description: '',
         tags: []
     })
+    const loading = ref(false)
 
     const config = useRuntimeConfig()
     const router = useRouter()
@@ -80,15 +81,21 @@
         }
 
         try {
+            loading.value = true
+
             const uploadedImageUrl = await imageStorageClient.upload(imageFile)
-            const addedPictureId = await addPicture(accessToken.value, 
-                { imageUrl: uploadedImageUrl, 
-                    title, description, tags 
-                })
+            const addedPictureId = await addPicture(accessToken.value, { 
+                imageUrl: uploadedImageUrl, 
+                title, description, tags 
+            })
+
+            loading.value = false
             
             router.push('/pictures/' + addedPictureId)
         }
         catch(error) {
+            loading.value = false
+
             if(error instanceof ImageStorageClientError) {
                 showErrorText(error.message)
             }
