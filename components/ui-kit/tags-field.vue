@@ -3,7 +3,7 @@
         flex justify-start gap-4 flex-wrap" :class="{ 'field-focused': focused }">
         <TransitionGroup name="tags-list">
 
-            <div class="px-5 py-1 bg-fire text-white rounded-lg" v-for="tag in tags" :key="tags.indexOf(tag)">
+            <div class="px-5 py-1 bg-fire text-white rounded-lg" v-for="tag in modelValue">
                 <span class="mr-2">
                     {{ tag }}
                 </span>
@@ -26,25 +26,26 @@
 
 <script lang="ts" setup>
     const emit = defineEmits<{
-        (event : 'tags-updated', newValue : string[]) : void
+        (event : 'update:modelValue', newValue : string[]) : void
     }>()
 
-    const tags = ref<string[]>([])
+    const props = defineProps<{
+        modelValue : string[]
+    }>()
+
     const newTag = ref('')
     const focused = ref(false)
 
     function deleteTag(tagToDelete : string) {
-        tags.value = tags.value.filter(tag => tag != tagToDelete)
-        emit('tags-updated', tags.value)
+        emit('update:modelValue', props.modelValue.filter(tag => tag != tagToDelete))
     }
 
     function addTagIfEnterPressed(event : KeyboardEvent) {
         if(event.key == 'Enter') {
             const newTagValue = newTag.value
             if(newTagValue.length > 0) {
-                if(!tags.value.includes(newTagValue)) {
-                    tags.value.push(newTagValue)
-                    emit('tags-updated', tags.value)
+                if(!props.modelValue.includes(newTagValue)) {
+                    emit('update:modelValue', [ ...props.modelValue, newTagValue ])
                     newTag.value = ''
                 }
             }

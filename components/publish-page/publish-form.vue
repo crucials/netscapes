@@ -29,7 +29,7 @@
                 3. Add some tags that describe your post
             </p>
 
-            <TagsField @tags-updated="(newValue) => formData.tags = newValue"/>
+            <TagsField v-model="formData.tags"/>
         </label>
 
         <FilledButton type="button" @click="publish" class="mb-3" :loading="loading">
