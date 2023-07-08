@@ -6,7 +6,6 @@
 
 <script lang="ts" setup>
     import { getPictures } from '~~/api'
-    import { useSearchQueryStore } from '~~/stores/search-query'
     import { FeedPicture } from '~~/types'
 
     useHead({

@@ -26,7 +26,7 @@
                 {{ picture?.description }}
             </p>
 
-            <div class="flex gap-7 mb-12 flex-wrap xs:flex-col">
+            <div class="flex gap-7 mb-8 flex-wrap xs:flex-col">
                 <FilledButton @click="download" class="">
                     Download
                 </FilledButton>
@@ -38,7 +38,9 @@
                 <CollectionsDropDown :picture-id="pictureId"/>
             </div>
 
-            <hr class="border-neutral-300 mb-6">
+            <TagsList :tags="picture?.tags || []" class="mb-8"/>
+
+            <hr class="border-neutral-300 mb-8">
 
             <h3 class="text-2xl text-black font-normal mb-4 sm:text-xl">
                 Comments

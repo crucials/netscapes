@@ -24,10 +24,17 @@
     import { FeedPicture } from '~~/types'
 
     const router = useRouter()
+    const route = useRoute()
 
     const { searchQuery } = storeToRefs(useSearchQueryStore())
+    const searchQueryFromRoute = route.query.query
+
     const foundPictures = ref<FeedPicture[]>([])
     const loading = ref(true)
+
+    if(searchQueryFromRoute) {
+        searchQuery.value = searchQueryFromRoute.toString()
+    }
 
     search()
 
