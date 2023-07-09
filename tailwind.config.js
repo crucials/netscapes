@@ -3,31 +3,35 @@ export default {
     content: ['./index.html', './src/**/*.{vue,js,ts}'],
     theme: {
       screens: {
-        'xs': {
-          max: '380px'
+        '3xl': {
+          min: '1750px'
         },
-  
-        'sm': {
-          max: '640px'
+
+        '2xl': {
+          max: '1420px'
         },
-  
-        'lg': {
-          max: '768px'
-        },
-  
-        'm': {
-          max: '1050px'
-        },
-  
+
         'xl': {
           max: '1280px'
         },
-  
-        '3xl': {
-          min: '1750px'
-        }
+
+        'm': {
+          max: '1050px'
+        },
+
+        'lg': {
+          max: '768px'
+        },
+
+        'sm': {
+          max: '640px'
+        },
+
+        'xs': {
+          max: '380px'
+        },
       },
-  
+
       extend: {
         minWidth: {
           '1': '100px',
