@@ -7,7 +7,7 @@
 
                 <img :src="'/drop-down-icons/' + item.iconFilename" :alt="item.iconAltText">
                 <span class="block transition-transform duration-300">
-                    {{ item.title }}
+                    {{ cropItemTitle(item.title) }}
                 </span>
 
             </li>
@@ -24,6 +24,15 @@
     const emit = defineEmits<{
         (event : 'item-clicked', item : DropDownItem) : void
     }>()
+
+    function cropItemTitle(title : string) {
+        if(title.length >= 28) {
+            return title.slice(0, 25) + '...'
+        }
+        else {
+            return title
+        }
+    }
 </script>
 
 <style scoped>
@@ -32,7 +41,7 @@
     }
 
     .drop-down-list {
-        @apply absolute p-3.5 bg-white left-0 -top-3 pointer-events-none opacity-0 min-w-[125px] 
+        @apply absolute p-3.5 bg-white left-0 -top-3 pointer-events-none opacity-0 min-w-1.5
             hover:cursor-default z-10 rounded-lg;
         transition: top 0.45s, opacity 0.3s;
         box-shadow: 0px 10px 30px 0px #00000026;
