@@ -43,7 +43,7 @@
 <script lang="ts" setup>
     import { addPicture } from '~~/api';
     import { ImageStorageClient, ImageStorageClientError } from '~~/image-storage-client'
-    import { useSessionStore } from '~~/stores/session';
+    import { useSessionStore } from '~~/stores/session'
 
     interface PublishFormData {
         imageFile : File | undefined
@@ -95,6 +95,8 @@
         }
         catch(error) {
             loading.value = false
+            console.log(error)
+            
 
             if(error instanceof ImageStorageClientError) {
                 showErrorText(error.message)
