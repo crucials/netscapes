@@ -4,7 +4,7 @@
             @window-closed="deleteModalOpened = false" @picture-deleted="router.push('/feed')"/>
 
         <section class="flex justify-around gap-10 items-start lg:flex-col mb-40">
-            <div class="w-[29%] rounded-2xl shadow-soft-xl overflow-hidden min-w-4 max-w-lg lg:w-full
+            <div class="w-[38%] rounded-2xl shadow-soft-xl overflow-hidden min-w-4 lg:max-w-lg lg:w-full
                 sm:min-w-2.5">
                 <img :src="picture?.imageUrl" :alt="picture?.title" v-show="!imageBroken" class="w-full">
                 <img src="@/assets/images/picture-fallback.svg" alt="No picture" class="w-full" v-show="imageBroken">
