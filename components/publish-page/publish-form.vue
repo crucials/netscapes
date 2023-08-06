@@ -7,7 +7,7 @@
 
             <div>
                 <UploadFileButton :class="{ 'mb-2': formData.imageFile }" 
-                    @file-uploaded="file => formData.imageFile = file"/>
+                    @file-uploaded="(file : File) => formData.imageFile = file"/>
                 <span class="block text-fire text-sm max-w-[200px] truncate" :title="formData.imageFile?.name">
                     {{ formData.imageFile?.name }}
                 </span>
