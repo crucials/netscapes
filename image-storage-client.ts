@@ -1,4 +1,4 @@
-import Compressor from 'compressorjs'
+import imageCompression from 'browser-image-compression'
 
 export class ImageStorageClientError implements Error {
     name: string = 'ImageStorageClientError'
@@ -17,33 +17,23 @@ export class ImageStorageClient {
         this.key = key
     }
 
-    async upload(image : Blob) : Promise<string> {
+    async upload(image : File) : Promise<string> {
         if(image.type.split('/')[0] != 'image') {
             throw new ImageStorageClientError('File must be an image')
         }
         
         let compressedImage : Blob
         try {
-            compressedImage = await new Promise<Blob>((resolve, reject) => {
-                new Compressor(image, {
-                    quality: 0.6,
-                    maxWidth: 2050,
-        
-                    async success(compressedImage) {
-                        resolve(compressedImage)
-                    },
-        
-                    error(error) {
-                        reject(error)
-                    }
-                })
+            compressedImage = await imageCompression(image, {
+                maxWidthOrHeight: 1280,
+                maxSizeMB: 1
             })
         }
         catch(error) { 
             throw new ImageStorageClientError('Something went wrong while processing your image. Perhaps'
                 + ' it is broken or has unsupported format')
         }
-
+        
         const formData = new FormData()
         formData.set('image', compressedImage)
     
@@ -51,7 +41,7 @@ export class ImageStorageClient {
             method: 'POST',
             body: formData
         })
-        if(!response.ok) {
+        if(!response.ok) {    
             throw new ImageStorageClientError('Failed to upload image. Check your image isn\'t broken or try again later')
         }
     
