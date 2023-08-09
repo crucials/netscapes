@@ -106,7 +106,7 @@
                     // Query picture again for updating account last viewed tags statistic
                     getPictureById(pictureId, accessToken.value)
 
-                    const allPictures = await getPictures(accessToken.value !== '' ? accessToken.value : undefined)
+                    const allPictures = await getPictures(accessToken.value)
                     otherPictures.value = allPictures.filter(pictureFromApi => pictureFromApi.id !== picture.value?.id)
 
                     if(account.value?.username == picture.value?.author.username) {
@@ -114,6 +114,11 @@
                     }
                 }
                 catch(error) {}
+            }
+            else {
+                otherPictures.value = (await getPictures()).filter(pictureFromApi => {
+                    return pictureFromApi.id !== picture.value?.id
+                })
             }
         })
     })
