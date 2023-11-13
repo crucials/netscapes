@@ -13,7 +13,8 @@
         </div>
 
         <Transition appear enter-from-class="opacity-0">
-            <img src="@/assets/images/valley-illustration.svg" alt="Valley with trees illustration" class="transition-opacity duration-700">
+            <img src="@/assets/images/valley-illustration.svg" alt="Valley with trees illustration" 
+                class="transition-opacity duration-700 w-full">
         </Transition>
     </main>
 </template>
