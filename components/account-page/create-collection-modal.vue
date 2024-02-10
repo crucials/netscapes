@@ -40,7 +40,6 @@
         (event : 'window-closed') : void
     }>()
 
-    const config = useRuntimeConfig()
     const { errorTextVisible, errorText, showErrorText } = useErrorText()
 
     const sessionStore = useSessionStore()
@@ -56,7 +55,7 @@
     })
     const loading = ref(false)
 
-    const imageStorageClient = new ImageStorageClient(config.public.imageStorageKey)
+    const imageStorageClient = new ImageStorageClient()
     async function createCollection() {
         if(!loading.value) {
             loading.value = true

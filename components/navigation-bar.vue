@@ -86,10 +86,9 @@
     const searchInputText = ref('')
     const { searchQuery } = storeToRefs(useSearchQueryStore())
 
-    const config = useRuntimeConfig()
     const router = useRouter()
 
-    const imageStorageClient = new ImageStorageClient(config.public.imageStorageKey)
+    const imageStorageClient = new ImageStorageClient()
 
     const sessionStore = useSessionStore()
     const { account, accessToken } = storeToRefs(sessionStore)
