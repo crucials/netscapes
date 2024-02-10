@@ -10,14 +10,12 @@ export class ImageStorageClientError implements Error {
 }
 
 export class ImageStorageClient {
-    private readonly IMAGE_STORAGE_URL : string = 'https://api.imgbb.com/1/upload'
-    private key : string
-
-    constructor(key : string) {
-        this.key = key
-    }
+    private readonly IMAGE_STORAGE_URL : string = 'https://imgbb.com/json'
 
     async upload(image : File) : Promise<string> {
+        const UPLOAD_ERROR_MESSAGE = 'Failed to upload image. Check your image ' +
+            'isn\'t broken or try again later'
+
         if(image.type.split('/')[0] != 'image') {
             throw new ImageStorageClientError('File must be an image')
         }
@@ -35,16 +33,23 @@ export class ImageStorageClient {
         }
         
         const formData = new FormData()
-        formData.set('image', compressedImage)
+        formData.set('source', compressedImage)
+        formData.set('type', 'file')
+        formData.set('action', 'upload')
     
-        const response = await fetch(`${this.IMAGE_STORAGE_URL}?key=${this.key}`, {
+        const response = await fetch(this.IMAGE_STORAGE_URL, {
             method: 'POST',
             body: formData
         })
         if(!response.ok) {    
-            throw new ImageStorageClientError('Failed to upload image. Check your image isn\'t broken or try again later')
+            throw new ImageStorageClientError(UPLOAD_ERROR_MESSAGE)
         }
-    
-        return (await response.json()).data.url
+
+        const responseData = await response.json()
+        if(!responseData.image?.url) {
+            throw new ImageStorageClientError(UPLOAD_ERROR_MESSAGE)
+        }
+        
+        return responseData.image.url
     }
 }

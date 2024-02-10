@@ -59,12 +59,11 @@
         tags: []
     })
     const loading = ref(false)
-
-    const config = useRuntimeConfig()
+    
     const router = useRouter()
 
     const { accessToken } = storeToRefs(useSessionStore())
-    const imageStorageClient = new ImageStorageClient(config.public.imageStorageKey)
+    const imageStorageClient = new ImageStorageClient()
     const { errorText, errorTextVisible, showErrorText } = useErrorText()
 
     async function publish() {
